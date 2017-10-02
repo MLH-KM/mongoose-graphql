@@ -1,4 +1,7 @@
-# mongoose-graphql
+# mongoose-graphql [![Build Status][travis-image]][travis-url]
+
+[travis-url]: https://travis-ci.org/MLH-KM/mongoose-graphql
+[travis-image]: https://travis-ci.org/MLH-KM/mongoose-graphql.svg?branch=master
 
 [mongoose-graphql](https://github.com/zipdrug/mongoose-graphql) converts a mongoose model to graphql types.
 
