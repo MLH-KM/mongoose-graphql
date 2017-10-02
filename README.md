@@ -18,9 +18,7 @@ var modelToType = mongooseGraphQL.modelToType;
 ```
 ## API
 
-### modelToType
-
-> `modelToType(model, options)`
+### `modelToType(model, [options])`
 
 Convert a mongoose model to graphql types.
 
@@ -51,7 +49,7 @@ console.log(typeDef);
 ```
 
 Outputs:
-```
+```graphql
 type BookCategory {
   _id: String
   genre: Genre
