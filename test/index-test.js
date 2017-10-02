@@ -1,42 +1,72 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import test from 'ava';
+import { words } from 'lodash';
 import { modelToType } from '../lib/index';
-import { BookModel, BookTypes, BookTypesExtended, NotebookTypes, OrderModel, OrderTypes, StoreModel, StoreType } from './models';
+import {
+  AuthorModel,
+  AuthorType,
+  AuthorTypeExtended,
+  BookModel,
+  BookTypes,
+  BookTypesExtended,
+  NotebookTypes,
+  OrderModel,
+  OrderTypes,
+  StoreModel,
+  StoreType
+} from './models';
 
-test('flat StoreModel converts to a type string', (t) => {
+test('flat StoreModel converts to a type string', t => {
   const schema = modelToType(StoreModel);
-  t.is(schema, StoreType);
+
+  t.deepEqual(words(schema), words(StoreType));
 });
 
-test('nested OrderModel converts to a type string', (t) => {
+test('nested OrderModel converts to a type string', t => {
   const schema = modelToType(OrderModel);
-  t.is(schema, OrderTypes, `Expected\n${schema}\nto equal\n${OrderTypes}`);
+  t.deepEqual(words(schema), words(OrderTypes), `Expected\n${schema}\nto equal\n${OrderTypes}`);
 });
 
-test('embedded BookModel converts to a type string', (t) => {
+test('embedded BookModel converts to a type string', t => {
   const schema = modelToType(BookModel);
-  t.is(schema, BookTypes, `Expected\n${schema}\nto equal\n${BookTypes}`);
+  t.deepEqual(words(schema), words(BookTypes), `Expected\n${schema}\nto equal\n${BookTypes}`);
 });
 
-test('can extend generated types', (t) => {
+test('can extend generated types', t => {
   const schema = modelToType(BookModel, {
     extend: {
       Book: {
-        publishers: '[Publisher]',
+        publishers: '[Publisher]'
       },
       BookCategory: {
-        genre: 'Genre',
-      },
-    },
+        genre: 'Genre'
+      }
+    }
   });
 
-  t.is(schema, BookTypesExtended, `Expected\n${schema}\nto equal\n${BookTypesExtended}`);
+  t.deepEqual(words(schema), words(BookTypesExtended), `Expected\n${schema}\nto equal\n${BookTypesExtended}`);
 });
 
-test('can overwrite generated type name', (t) => {
+test('can overwrite generated type name', t => {
   const schema = modelToType(BookModel, {
-    name: 'Notebook',
+    name: 'Notebook'
   });
 
-  t.is(schema, NotebookTypes, `Expected\n${schema}\nto equal\n${NotebookTypes}`);
+  t.deepEqual(words(schema), words(NotebookTypes), `Expected\n${schema}\nto equal\n${NotebookTypes}`);
+});
+
+test('can infer type from ref', t => {
+  const schema = modelToType(AuthorModel);
+
+  t.deepEqual(words(schema), words(AuthorType), `Expected\n${schema}\nto equal\n${AuthorType}`);
+});
+
+test('can override inferred type from ref', t => {
+  const schema = modelToType(AuthorModel, {
+    refs: {
+      Book: 'Notebook'
+    }
+  });
+
+  t.deepEqual(words(schema), words(AuthorTypeExtended), `Expected\n${schema}\nto equal\n${AuthorTypeExtended}`);
 });
