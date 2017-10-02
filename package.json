@@ -9,20 +9,15 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint lib test",
-    "prepublish": "npm run lint && npm run test && npm run build",
+    "prepublish": "npm run test && npm run build",
     "test": "ava test/**-test.js",
     "test:watch": "npm test -- --watch"
   },
   "author": "Zipdrug",
   "license": "MIT",
-  "files": [
-    "lib",
-    "dist"
-  ],
+  "files": ["lib", "dist"],
   "ava": {
-    "require": [
-      "babel-register"
-    ]
+    "require": ["babel-register"]
   },
   "dependencies": {
     "lodash": "^4.16.4",
