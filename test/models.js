@@ -131,3 +131,20 @@ type Author {
   name: String
 }
 `;
+
+export const AuthorModelWithPrivateField = mongoose.model(
+    'AuthorOmit',
+    new Schema({
+        name: String,
+        books: [{ type: Schema.Types.ObjectId, ref: 'Book' }],
+        hash: String
+    })
+);
+
+export const AuthorTypeWithOmittedField = `
+type AuthorOmit {
+  _id: String
+  books: [Book]
+  name: String
+}
+`;

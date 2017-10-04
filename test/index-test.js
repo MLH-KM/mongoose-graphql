@@ -4,8 +4,10 @@ import { words } from 'lodash';
 import { modelToType } from '../lib/index';
 import {
     AuthorModel,
+    AuthorModelWithPrivateField,
     AuthorType,
     AuthorTypeExtended,
+    AuthorTypeWithOmittedField,
     BookModel,
     BookTypes,
     BookTypesExtended,
@@ -69,4 +71,16 @@ test('can override inferred type from ref', t => {
     });
 
     t.deepEqual(words(schema), words(AuthorTypeExtended), `Expected\n${schema}\nto equal\n${AuthorTypeExtended}`);
+});
+
+test('omits properties from conversion', t => {
+    const schema = modelToType(AuthorModelWithPrivateField, {
+        omit: ['hash']
+    });
+
+    t.deepEqual(
+        words(schema),
+        words(AuthorTypeWithOmittedField),
+        `Expected\n${schema}\nto equal\n${AuthorTypeWithOmittedField}`
+    );
 });

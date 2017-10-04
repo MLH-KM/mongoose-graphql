@@ -16,9 +16,14 @@
     },
     "author": "Zipdrug",
     "license": "MIT",
-    "files": ["lib", "dist"],
+    "files": [
+        "lib",
+        "dist"
+    ],
     "ava": {
-        "require": ["babel-register"]
+        "require": [
+            "babel-register"
+        ]
     },
     "dependencies": {
         "lodash": "^4.16.4",
