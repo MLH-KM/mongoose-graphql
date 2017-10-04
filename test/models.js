@@ -2,13 +2,13 @@
 import mongoose, { Schema } from 'mongoose';
 
 export const StoreModel = mongoose.model(
-  'Store',
-  new Schema({
-    joinDate: Date,
-    name: String,
-    no: Number,
-    placeId: String
-  })
+    'Store',
+    new Schema({
+        joinDate: Date,
+        name: String,
+        no: Number,
+        placeId: String
+    })
 );
 
 export const StoreType = `
@@ -22,21 +22,21 @@ export const StoreType = `
 `;
 
 export const OrderModel = mongoose.model(
-  'Order',
-  new Schema({
-    name: String,
-    location: {
-      deliveryInstructions: String,
-      placeId: String
-    },
-    statusHistory: [
-      {
-        note: String,
-        status: String
-      }
-    ],
-    tags: [String]
-  })
+    'Order',
+    new Schema({
+        name: String,
+        location: {
+            deliveryInstructions: String,
+            placeId: String
+        },
+        statusHistory: [
+            {
+                note: String,
+                status: String
+            }
+        ],
+        tags: [String]
+    })
 );
 
 export const OrderTypes = `
@@ -59,15 +59,15 @@ export const OrderTypes = `
 `;
 
 const CategorySchema = new Schema({
-  type: String
+    type: String
 });
 
 export const BookModel = mongoose.model(
-  'Book',
-  new Schema({
-    category: CategorySchema,
-    name: String
-  })
+    'Book',
+    new Schema({
+        category: CategorySchema,
+        name: String
+    })
 );
 
 export const BookTypes = `
@@ -109,11 +109,11 @@ export const NotebookTypes = `
 `;
 
 export const AuthorModel = mongoose.model(
-  'Author',
-  new Schema({
-    name: String,
-    books: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
-  })
+    'Author',
+    new Schema({
+        name: String,
+        books: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
+    })
 );
 
 export const AuthorType = `
