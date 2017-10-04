@@ -8,6 +8,8 @@ import {
     AuthorType,
     AuthorTypeExtended,
     AuthorTypeWithOmittedField,
+    AuthorWithNestedSchema,
+    AuthorTypeWithNestedSchema,
     BookModel,
     BookTypes,
     BookTypesExtended,
@@ -82,5 +84,15 @@ test('omits properties from conversion', t => {
         words(schema),
         words(AuthorTypeWithOmittedField),
         `Expected\n${schema}\nto equal\n${AuthorTypeWithOmittedField}`
+    );
+});
+
+test('nested schemas are allowed', t => {
+    const schema = modelToType(AuthorWithNestedSchema);
+
+    t.deepEqual(
+        words(schema),
+        words(AuthorTypeWithNestedSchema),
+        `Expected\n${schema}\nto equal\n${AuthorTypeWithNestedSchema}`
     );
 });

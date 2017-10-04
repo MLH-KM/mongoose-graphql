@@ -112,7 +112,8 @@ export const AuthorModel = mongoose.model(
     'Author',
     new Schema({
         name: String,
-        books: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
+        books: [{ type: Schema.Types.ObjectId, ref: 'Book' }],
+        notebook: { type: Schema.Types.ObjectId, ref: 'Notebook' }
     })
 );
 
@@ -121,6 +122,7 @@ export const AuthorType = `
     _id: String
     books: [Book]
     name: String
+    notebook: Notebook
   }
 `;
 
@@ -129,6 +131,7 @@ type Author {
   _id: String
   books: [Notebook]
   name: String
+  notebook: Notebook
 }
 `;
 
@@ -146,5 +149,45 @@ type AuthorOmit {
   _id: String
   books: [Book]
   name: String
+}
+`;
+
+const bookSchema = new Schema({
+    name: String,
+    year: Number
+});
+
+const publisherSchema = new Schema({
+    name: String,
+    authors: [String]
+});
+
+export const AuthorWithNestedSchema = mongoose.model(
+    'AuthorNested',
+    new Schema({
+        name: String,
+        books: [bookSchema],
+        publisher: publisherSchema
+    })
+);
+
+export const AuthorTypeWithNestedSchema = `
+type AuthorNestedPublisher {
+  _id: String
+  authors: [String]
+  name: String
+}
+
+type AuthorNestedBook {
+  _id: String
+  name: String
+  year: Float
+}
+
+type AuthorNested {
+  _id: String
+  books: [AuthorNestedBook]
+  name: String
+  publisher: AuthorNestedPublisher
 }
 `;

@@ -208,7 +208,7 @@ var getTypeTree = function getTypeTree(schemaPaths) {
         } else if (path.instance === 'Embedded') {
             value = getTypeTree(path.caster.schema.paths);
         } else {
-            value = instanceToType(path.instance);
+            value = path.options && path.options.ref ? refToType(path.options.ref) : instanceToType(path.instance);
         }
 
         setDescendant(typeTree, key, value);
